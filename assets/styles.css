@@ -7,12 +7,11 @@
   --ink:#0b1b1c;
   --muted: rgba(11,27,28,.74);
 
-  --card: rgba(255,255,255,.82);
+  --card: rgba(255,255,255,.84);
   --stroke: rgba(15,124,130,.16);
   --shadow: 0 24px 60px rgba(0,0,0,.14);
   --radius: 22px;
 
-  /* مساحات مرنة (تفيد التابلت كثير) */
   --padX: clamp(14px, 3vw, 22px);
   --padY: clamp(18px, 3.2vw, 28px);
 }
@@ -33,7 +32,7 @@ body{
     linear-gradient(135deg, #ECFAF7, #EDF3FF);
 }
 
-/* Canvas خلفية */
+/* Canvas الخلفية */
 .bg{
   position: fixed;
   inset: 0;
@@ -42,24 +41,28 @@ body{
   z-index: 0;
 }
 
-/* تخفيف الحركة للي يفضّل تقليلها */
+/* تقليل الحركة لمن يفضل ذلك */
 @media (prefers-reduced-motion: reduce){
   .bg{ display:none; }
   *{ animation: none !important; transition: none !important; }
 }
 
+/* ✅ توسيط صارم (عمودي/أفقي) */
 .wrap{
   position: relative;
   z-index: 1;
-  min-height: 100dvh;           /* أفضل من 100vh خاصة على iOS */
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
   padding: var(--padY) var(--padX);
 }
 
-.topbar{
+.shell{
   width: min(960px, 100%);
+}
+
+.topbar{
+  width: 100%;
   height: 10px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--teal) 0%, var(--green) 45%, var(--blue) 100%);
@@ -71,7 +74,7 @@ body{
 }
 
 .card{
-  width: min(960px, 100%);
+  width: 100%;
   background: var(--card);
   border: 1px solid var(--stroke);
   box-shadow: var(--shadow);
@@ -84,7 +87,7 @@ body{
   position: relative;
 }
 
-/* لمعان لطيف */
+/* لمعان لطيف فوق البطاقة */
 .sheen{
   position:absolute;
   inset:-140px;
@@ -96,7 +99,7 @@ body{
 }
 
 .header{
-  padding: calc(var(--padY) * 1.0) var(--padX) 10px;
+  padding: calc(var(--padY) * 1.05) var(--padX) 10px;
   text-align:center;
   display:flex;
   flex-direction: column;
@@ -104,19 +107,19 @@ body{
   gap: clamp(8px, 1.6vw, 12px);
 }
 
-/* إطار للشعار: متناسق على التابلت */
+/* إطار الشعار */
 .logoFrame{
-  width: min(760px, 96%);
+  width: min(780px, 96%);
   padding: clamp(10px, 2vw, 16px);
   border-radius: clamp(16px, 2vw, 20px);
-  background: linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.62));
+  background: linear-gradient(180deg, rgba(255,255,255,.82), rgba(255,255,255,.62));
   border: 1px solid rgba(0,0,0,.06);
   box-shadow: 0 14px 30px rgba(0,0,0,.08);
   position: relative;
   overflow:hidden;
 }
 
-/* حافة/هالة بألوان الشعار */
+/* هالة بألوان الشعار */
 .logoFrame::before{
   content:"";
   position:absolute;
@@ -158,11 +161,12 @@ body{
 }
 
 .content{
-  padding: 14px var(--padX) calc(var(--padY) * 0.85);
+  padding: 14px var(--padX) calc(var(--padY) * 0.9);
   display:flex;
   flex-direction: column;
   gap: 12px;
   align-items:center;
+  text-align:center;
 }
 
 .btn{
@@ -182,7 +186,6 @@ body{
   outline: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-
   transition: transform .10s ease, box-shadow .20s ease, filter .20s ease;
 }
 
@@ -242,9 +245,19 @@ body{
 }
 
 .meta{
-  font-size: 12.5px;
+  font-size: 13px;
   color: rgba(11,27,28,.62);
-  text-align:center;
+}
+
+/* شريط الرقم بشكل أجمل */
+.meta{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(15,124,130,.08);
+  border: 1px solid rgba(15,124,130,.12);
 }
 
 .footer{
@@ -255,24 +268,23 @@ body{
   text-align:center;
 }
 
-/* ✅ نقاط كسر واضحة للتابلت */
+/* ✅ تحسين تابلت */
 @media (min-width: 600px) and (max-width: 1024px){
-  .topbar{ width: min(860px, 100%); }
-  .card{ width: min(860px, 100%); }
+  .shell{ width: min(860px, 100%); }
   .logoFrame{ width: min(720px, 96%); }
   .btn{ width: min(520px, 100%); }
 }
 
-/* ✅ موبايل صغير */
+/* ✅ موبايل */
 @media (max-width: 520px){
   .header{ padding: 18px 14px 8px; }
   .content{ padding: 12px 14px 16px; }
   .logoFrame{ width: 96%; }
 }
 
-/* ✅ شاشات كبيرة جدًا */
+/* ✅ شاشات كبيرة */
 @media (min-width: 1280px){
-  .card{ width: 980px; }
+  .shell{ width: 980px; }
 }
 
 @keyframes ripple{
