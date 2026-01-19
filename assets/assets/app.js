@@ -1,14 +1,12 @@
 (() => {
-  // رقم واتساب
+  // ✅ رقم واتساب
   const WHATSAPP_NUMBER = "966165317007";
 
-  // زر واتساب + بيانات بسيطة
+  // زر واتساب + الرقم في الصفحة
   const waBtn = document.getElementById("waBtn");
   const metaText = document.getElementById("metaText");
-  const waBase = `https://wa.me/${WHATSAPP_NUMBER}`;
-  waBtn.href = waBase;
 
-  // إذا ما تبغى يظهر الرقم نهائيًا: علّق السطرين الجايين
+  waBtn.href = `https://wa.me/${WHATSAPP_NUMBER}`;
   metaText.textContent = `واتساب: ${WHATSAPP_NUMBER}`;
 
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -28,7 +26,7 @@
     setTimeout(() => s.remove(), 700);
   });
 
-  // Sheen يتبع الماوس
+  // Sheen يتبع الماوس (على الأجهزة اللمسية قد لا يعمل، طبيعي)
   const card = document.getElementById("card");
   const sheen = document.getElementById("sheen");
 
@@ -44,7 +42,7 @@
     sheen.style.opacity = ".55";
   });
 
-  // خلفية Canvas تفاعلية (نقاط/فقاعات ناعمة)
+  // ===== خلفية Canvas تفاعلية ناعمة =====
   const canvas = document.getElementById("bg");
   const ctx = canvas.getContext("2d", { alpha: true });
 
@@ -52,9 +50,9 @@
   let W = 0, H = 0;
 
   const palette = [
-    { r: 15, g: 124, b: 130, a: 0.22 }, // teal
+    { r: 15,  g: 124, b: 130, a: 0.22 }, // teal
     { r: 121, g: 176, b: 91,  a: 0.18 }, // green
-    { r: 90, g: 159, b: 214, a: 0.18 }, // blue
+    { r: 90,  g: 159, b: 214, a: 0.18 }, // blue
   ];
 
   let mouse = { x: 0.5, y: 0.5, active: false };
@@ -90,12 +88,10 @@
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    // تأثير خفيف على حسب الماوس
     const mx = mouse.x * W;
     const my = mouse.y * H;
 
     for (const b of bubbles) {
-      // حركة عائمة
       b.x += b.vx;
       b.y += b.vy;
 
@@ -104,7 +100,7 @@
       if (b.y < -b.r) b.y = H + b.r;
       if (b.y > H + b.r) b.y = -b.r;
 
-      // انجذاب بسيط للماوس (ناعم)
+      // انجذاب بسيط للماوس
       const dx = mx - b.x;
       const dy = my - b.y;
       const dist = Math.sqrt(dx*dx + dy*dy) || 1;
